@@ -23,6 +23,7 @@ function App() {
           <Route path="/room" element={<Room />} />
           <Route path="/roomDetail/:roomId" element={<RoomDetail />} />
           <Route path="/addRoomDetail/" element={<AddRoomDetail />} />
+          <Route path="/booking/" element={<AddRoomDetail />} />
           <Route path="/home" element={<Home />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
