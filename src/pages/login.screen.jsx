@@ -27,7 +27,7 @@ const Login = () => {
             })
             console.log(response);
             if (response.statusText) {
-                navigate("/room")
+                navigate("/")
             }
         } catch (error) {
             console.log(error);

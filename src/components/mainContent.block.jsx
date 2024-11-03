@@ -21,7 +21,7 @@ const MainContent = ({ title, action, mainContent, bread }) => {
           {action}
         </Box>
       </Flex>
-      <Box>
+      <Box mb={50}>
         {mainContent}
       </Box>
     </>
