@@ -6,3 +6,8 @@ export const FormatDecimal = (number) => {
         maximumFractionDigits: 2,
     }).format(number);
 }
+
+
+export const formattedDate = (Date) => {
+    return Date.substring(0, 10)
+};

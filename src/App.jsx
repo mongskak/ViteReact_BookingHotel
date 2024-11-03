@@ -8,6 +8,8 @@ import Login from './pages/login.screen'
 import Home from './pages/home.screen'
 import { RoomDetail } from './pages/roomdetail.screen'
 import { AddRoomDetail } from './pages/addRoomDetail.screen'
+import { Booking } from './pages/booking.screen'
+import { BookingDetail } from './pages/bookingDetail.screen'
 
 
 function App() {
@@ -19,12 +21,14 @@ function App() {
       {location.pathname !== "/login" && <Navbar />}
       <Container maxW="container.xl">
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/room" element={<Room />} />
-          <Route path="/roomDetail/:roomId" element={<RoomDetail />} />
-          <Route path="/addRoomDetail/" element={<AddRoomDetail />} />
-          <Route path="/booking/" element={<AddRoomDetail />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Room" element={<Room />} />
+          <Route path="/RoomDetail/:roomId" element={<RoomDetail />} />
+          <Route path="/AddRoomDetail/" element={<AddRoomDetail />} />
+          <Route path="/Booking/" element={<Booking />} />
+          <Route path="/BookingDetail/" element={<BookingDetail />} />
+          <Route path="/BookingDetail/:bookingId" exact element={<BookingDetail />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Container>

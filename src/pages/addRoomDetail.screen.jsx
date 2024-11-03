@@ -5,6 +5,9 @@ import {
     Input,
     Button,
     Box,
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
 } from '@chakra-ui/react'
 import MainContent from '../components/mainContent.block'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -45,38 +48,56 @@ export const AddRoomDetail = () => {
 
     return (
         <>
-            <MainContent title={'Room Detail'} mainContent={
-                <>
-                    <Box p={6} maxW='lg' borderWidth='1px' borderRadius='lg'>
-                        <FormControl>
-                            <Box mb='5'>
-                                <FormLabel>Room Number</FormLabel>
-                                <Input type='text' onChange={(e) => setRoomNumber(e.target.value)} />
-                            </Box>
-                            <Box mb='5'>
-                                <FormLabel>Adult Capacity</FormLabel>
-                                <Input type='text' onChange={(e) => setAdultCapacity(e.target.value)} />
-                            </Box>
-                            <Box mb='5'>
-                                <FormLabel>Children Capacity</FormLabel>
-                                <Input type='text' onChange={(e) => setChildrenCapacity(e.target.value)} />
-                            </Box>
-                            <Box mb='5'>
-                                <FormLabel>Price</FormLabel>
-                                <Input type='number' onChange={(e) => setPrice(e.target.value)} />
-                            </Box>
+            <MainContent title={'Room Detail'}
+                bread={
+                    <>
+                        <Breadcrumb>
+                            <BreadcrumbItem>
+                                <BreadcrumbLink onClick={() => navigate('/')}>Home</BreadcrumbLink>
+                            </BreadcrumbItem>
+                            <BreadcrumbItem>
+                                <BreadcrumbLink onClick={() => navigate('/Room')}>Room</BreadcrumbLink>
+                            </BreadcrumbItem>
 
-                        </FormControl>
-                        <Button colorScheme='teal' variant='outline' onClick={onBack}>
-                            Back
-                        </Button>
-                        <Button colorScheme='teal' variant='solid' ml={'5'} onClick={onSubmit}>
-                            Save
-                        </Button>
+                            <BreadcrumbItem>
+                                <BreadcrumbLink isCurrentPage>Room Detail</BreadcrumbLink>
+                            </BreadcrumbItem>
 
-                    </Box>
-                </>
-            } />
+                        </Breadcrumb>
+                    </>
+                }
+                mainContent={
+                    <>
+                        <Box p={6} maxW='lg' borderWidth='1px' borderRadius='lg'>
+                            <FormControl>
+                                <Box mb='5'>
+                                    <FormLabel>Room Number</FormLabel>
+                                    <Input type='text' onChange={(e) => setRoomNumber(e.target.value)} />
+                                </Box>
+                                <Box mb='5'>
+                                    <FormLabel>Adult Capacity</FormLabel>
+                                    <Input type='text' onChange={(e) => setAdultCapacity(e.target.value)} />
+                                </Box>
+                                <Box mb='5'>
+                                    <FormLabel>Children Capacity</FormLabel>
+                                    <Input type='text' onChange={(e) => setChildrenCapacity(e.target.value)} />
+                                </Box>
+                                <Box mb='5'>
+                                    <FormLabel>Price</FormLabel>
+                                    <Input type='number' onChange={(e) => setPrice(e.target.value)} />
+                                </Box>
+
+                            </FormControl>
+                            <Button colorScheme='teal' variant='outline' onClick={onBack}>
+                                Back
+                            </Button>
+                            <Button colorScheme='teal' variant='solid' ml={'5'} onClick={onSubmit}>
+                                Save
+                            </Button>
+
+                        </Box>
+                    </>
+                } />
 
 
         </>

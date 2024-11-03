@@ -6,8 +6,10 @@ import {
     CardHeader,
     Input,
     Box,
+    Text,
 } from '@chakra-ui/react'
 import axios from 'axios';
+import AppLogo from '../components/appLogo.block';
 
 const Login = () => {
     const [username, setUsername] = useState();
@@ -40,31 +42,29 @@ const Login = () => {
             justifyContent={'center'}
             h={'100vh'}
         >
-            <Card
-                w={'400px'}
-            >
-                <CardHeader
-                    textAlign={'center'}
-                    fontSize={'24px'}
-                >Login</CardHeader>
-                <CardBody>
-                    <FormControl>
-                        <Box mb={"10px"}>
-                            <FormLabel htmlFor='email'>Email address</FormLabel>
-                            <Input type='email' id='email' onChange={(e) => setUsername(e.target.value)} />
-                        </Box >
-                        <Box mb={"10px"}>
-                            <FormLabel htmlFor='pass'>Password</FormLabel>
-                            <Input type='password' id='pass' onChange={(e) => setPassword(e.target.value)} />
-                        </Box>
-                        <Button
-                            w={'100%'}
-                            onClick={doLogin}
-                        >Login</Button>
+            <Box borderWidth={1} p={4} borderRadius={10} w={'400px'}>
+                <Box mb={2} display={'flex'} justifyContent={'center'}>
+                    <AppLogo size='100px' />
+                </Box>
+                <Text textAlign={'center'} mb={10} fontSize={'24px'} fontWeight={'semibold'}>Booking Hotel</Text>
+                <FormControl>
+                    <Box mb={"10px"}>
+                        <FormLabel htmlFor='email'>Email address</FormLabel>
+                        <Input type='email' id='email' onChange={(e) => setUsername(e.target.value)} />
+                    </Box >
+                    <Box mb={"10px"}>
+                        <FormLabel htmlFor='pass'>Password</FormLabel>
+                        <Input type='password' id='pass' onChange={(e) => setPassword(e.target.value)} />
+                    </Box>
+                    <Button
+                        w={'100%'}
+                        variant={'solid'}
+                        colorScheme='teal'
+                        onClick={doLogin}
+                    >Login</Button>
 
-                    </FormControl>
-                </CardBody>
-            </Card>
+                </FormControl>
+            </Box>
 
         </Flex>
     )

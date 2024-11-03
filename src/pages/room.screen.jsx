@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import Pagination from '../components/pagination.block';
 import { useNavigate } from 'react-router-dom';
-import { FormatDecimal } from '../functions/formatDecimal';
+import { FormatDecimal } from '../functions/functions';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -26,8 +26,7 @@ import {
 const Room = () => {
   const [rooms, setRooms] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
+  const [count, setCount] = useState(0);
   const itemsPerPage = 5; // Jumlah item per halaman
 
 
@@ -35,8 +34,7 @@ const Room = () => {
     const response = await axiosJWT.get(`http://localhost:4000/api/v1/rooms?page=${currentPage}&limit=${itemsPerPage}`);
     if (response.data.success) {
       setRooms(response.data.data);
-      setTotalPages(response.data.totalPages); // Set total halaman dari response
-      setTotalItems(response.data.totalItems); // Set total items dari response
+      setCount(response.data.count);// Set total items dari response
     }
   };
 
@@ -63,35 +61,28 @@ const Room = () => {
 
   const navigate = useNavigate();
 
-  const addRoom = () => {
-    navigate('/addRoomDetail'); // Mengarahkan ke halaman add room
-  };
-
-
   return (
     <>
-      <MainContent title={'Room'} bread={
+      <MainContent title={'Room List'} bread={
         <>
           <Breadcrumb>
             <BreadcrumbItem>
-              <BreadcrumbLink onClick={() => navigate('/home')}>Home</BreadcrumbLink>
+              <BreadcrumbLink onClick={() => navigate('/')}>Home</BreadcrumbLink>
             </BreadcrumbItem>
-
             <BreadcrumbItem>
-              <BreadcrumbLink isCurrentPage onClick={() => navigate('/room')}>Room</BreadcrumbLink>
+              <BreadcrumbLink>Room</BreadcrumbLink>
             </BreadcrumbItem>
-
           </Breadcrumb>
         </>
 
       } action={
         <>
-          <Button variant={'solid'} colorScheme='teal' onClick={addRoom}>
+          <Button variant={'solid'} colorScheme='teal' onClick={() => navigate('/addRoomDetail')}>
             Add Room
           </Button>
         </>
       } mainContent={
-        <Box borderWidth='1px' p={5} borderRadius={10}>
+        <Box borderWidth='1px' p={3} borderRadius={10}>
           <TableContainer>
             <Table size={'lg'}>
               <Thead>
@@ -111,7 +102,7 @@ const Room = () => {
                     <Td isNumeric>${FormatDecimal(room.price)}</Td>
                     <Td w={'100px'}>
                       {/* Tombol edit dan delete */}
-                      <Button colorScheme='teal' variant={'outline'} onClick={() => navigate(`/roomDetail/${room._id}`)}>Edit</Button>
+                      <Button colorScheme='teal' variant={'outline'} onClick={() => navigate(`/RoomDetail/${room._id}`)}>Edit</Button>
                       <Button colorScheme='red' variant={'solid'} onClick={() => deleteRoomById(room._id)} ml={'5'}>Delete</Button>
                     </Td>
                   </Tr>
@@ -120,11 +111,12 @@ const Room = () => {
 
             </Table>
           </TableContainer>
-          <Pagination currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            itemsDisplayed={rooms.length}
-            totalItems={totalItems} />
+          <Pagination
+            startIndex={currentPage}
+            count={count}
+            maxRecords={itemsPerPage}
+            onPageNavigate={handlePageChange}
+          />
 
 
         </Box>

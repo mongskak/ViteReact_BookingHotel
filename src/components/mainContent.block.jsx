@@ -4,22 +4,22 @@ import { Box, Flex, Text } from '@chakra-ui/react'
 const MainContent = ({ title, action, mainContent, bread }) => {
   return (
     <>
-      <Text>
+      <Box>
         {bread}
-      </Text>
+      </Box>
       <Flex
         alignItems={"center"}
         justifyContent={"space-between"}
-        mb={'20px'}
+        mb={'10px'}
       >
         <Text
           fontSize={'40px'}
         >
           {title}
         </Text>
-        <Text>
+        <Box>
           {action}
-        </Text>
+        </Box>
       </Flex>
       <Box>
         {mainContent}
