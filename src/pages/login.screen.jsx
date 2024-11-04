@@ -25,7 +25,6 @@ const Login = () => {
                 email: username,
                 password: password,
             })
-            console.log(response);
             if (response.statusText) {
                 navigate("/")
             }

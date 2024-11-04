@@ -2,17 +2,22 @@ import { Box, Button, Flex, List, ListItem, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { axiosJWT } from '../services/axiosInterceptor.services'
 import { format } from 'date-fns'
+import Pagination from './pagination.block'
 
-export const CheckedOutToday = ({ onCheckout }) => {
+export const CheckedOutToday = ({ onCheckout, AfterOnCheckout }) => {
     const [bookingCheckedOuts, setBookingCheckedOuts] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [count, setCount] = useState(0)
+    const itemsPerPage = 4
     const BookingStatus = 'CheckedIn'
 
 
 
     const getBookingStatus = async () => {
         try {
-            const response = await axiosJWT.get(`/bookings?status=${BookingStatus}`)
+            const response = await axiosJWT.get(`/bookings?status=${BookingStatus}&page=${currentPage}&limit=${itemsPerPage}`)
             setBookingCheckedOuts(response.data.data)
+            setCount(response.data.count)
         } catch (error) {
             console.log(error)
         }
@@ -20,11 +25,15 @@ export const CheckedOutToday = ({ onCheckout }) => {
 
     useEffect(() => {
         getBookingStatus()
-    }, [])
+    }, [currentPage, AfterOnCheckout])
+
+    const onPageNavigate = (page) => {
+        setCurrentPage(page)
+    }
 
     return (
         <>
-            <Box borderWidth={1} borderRadius={5} p={5} h={'400px'}>
+            <Box borderWidth={1} borderRadius={5} p={5} h={'430px'}>
                 <Text fontSize={'25px'} fontWeight={'bold'} mb={5}>
                     Check Out Today
                 </Text>
@@ -47,6 +56,12 @@ export const CheckedOutToday = ({ onCheckout }) => {
                     ))}
 
                 </List>
+                <Pagination
+                    startIndex={currentPage}
+                    count={count}
+                    maxRecords={itemsPerPage}
+                    onPageNavigate={onPageNavigate}
+                />
 
             </Box>
         </>

@@ -53,7 +53,6 @@ export const RoomService = () => {
     }
 
 
-
     const onRequestRoomService = async () => {
         const currDate = new Date();
         try {
@@ -68,8 +67,8 @@ export const RoomService = () => {
             setSelectedGuest('');
             setSelectedBookingId('');
             setServiceTypeId('');
-            setAmount('');
-            setRoomNumber('');
+            setAmount('12');
+            setRoomNumber('12');
         } catch (error) {
             console.log(error)
         }

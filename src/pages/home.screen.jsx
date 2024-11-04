@@ -13,20 +13,27 @@ import { CheckOutConfirmation } from '../components/checkoutConfirmation.block'
 
 const Home = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [isRefresh, setIsRefresh] = useState(false)
     const [selectedBookingId, setSelectedBookingId] = useState('')
 
     const onHandlerCheckout = (bookingId) => {
         setSelectedBookingId(bookingId)
         onOpen()
+
     }
 
+    const AfterOnCheckout = () => {
+        setIsRefresh(true)
+        onClose()
+
+    }
 
     return (
         <>
-            <PopUp isOpen={isOpen} onOpen={onOpen} onClose={onClose}
+            <PopUp title={'Check Out Confirmation'} isOpen={isOpen} onOpen={onOpen} onClose={onClose}
                 content={
                     <>
-                        <CheckOutConfirmation bookingId={selectedBookingId} />
+                        <CheckOutConfirmation bookingId={selectedBookingId} onClose={AfterOnCheckout} />
                     </>
                 } />
             <Box mb={50}>
@@ -37,7 +44,7 @@ const Home = () => {
                 </Image>
                 <Flex justifyContent={'space-around'} gap={'10px'} mt={3}>
                     <Box w={'100%'}>
-                        <CheckedOutToday onCheckout={onHandlerCheckout} />
+                        <CheckedOutToday onCheckout={onHandlerCheckout} AfterOnCheckout={isRefresh} />
                     </Box>
                     <Box w={'100%'}>
                         <CheckedInToday />

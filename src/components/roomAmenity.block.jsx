@@ -22,7 +22,6 @@ export const RoomAmenity = (currentRoomId) => {
         try {
             const response = await axiosJWT.get(`/roomAmenity/${roomId}`)
             setRoomAmenities(response.data.data)
-            console.log(response.data.data)
         } catch (error) {
             console.log(error)
         }
@@ -32,7 +31,7 @@ export const RoomAmenity = (currentRoomId) => {
         getAmenity();
     }, [])
 
-    console.log(roomAmenities)
+
 
     const createRoomAmenity = async () => {
         try {
@@ -47,6 +46,15 @@ export const RoomAmenity = (currentRoomId) => {
         }
     }
 
+    const onDelete = async (roomAmenityId) => {
+        try {
+            const res = await axiosJWT.delete(`/roomAmenity/${roomAmenityId}`)
+            getAmenityByRoomId(roomId)
+        } catch (error) {
+            console.log(error)
+        }
+
+    };
     return (
         <>
             <FormLabel>Room Amenity</FormLabel>
@@ -68,7 +76,10 @@ export const RoomAmenity = (currentRoomId) => {
                 <List spacing={0}>
                     {roomAmenities.map(roomAmenity => (
                         <ListItem key={roomAmenity._id} borderWidth={1} p={3}> {/* Pastikan untuk menambahkan key unik */}
-                            {roomAmenity.amenityId.amenityName}
+                            <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                                {roomAmenity.amenityId.amenityName}
+                                <Button variant={'solid'} colorScheme='red' size={'sm'} onClick={() => onDelete(roomAmenity._id)}>Delete</Button>
+                            </Box>
                         </ListItem>
                     ))}
                 </List>

@@ -76,11 +76,11 @@ export const RoomDetail = () => {
     };
 
 
-
     return (
         <>
             <MainContent
                 title={'Room Detail'}
+
                 bread={
                     <>
                         <Breadcrumb>

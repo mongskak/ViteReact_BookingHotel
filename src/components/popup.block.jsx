@@ -9,25 +9,25 @@ import {
     ModalCloseButton,
     Button,
 } from '@chakra-ui/react'
-export const PopUp = ({ isOpen, onOpen, onClose, content }) => {
+export const PopUp = ({ isOpen, onOpen, onClose, content, title }) => {
 
     return (
         <>
-            <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+            <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} title={title}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Create your account</ModalHeader>
+                    <ModalHeader>{title}</ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody pb={6}>
+                    <ModalBody pb={3}>
                         {content}
                     </ModalBody>
 
-                    <ModalFooter>
+                    {/* <ModalFooter>
                         <Button colorScheme='blue' mr={3}>
                             Save
                         </Button>
                         <Button onClick={onClose}>Cancel</Button>
-                    </ModalFooter>
+                    </ModalFooter> */}
                 </ModalContent>
             </Modal>
 
