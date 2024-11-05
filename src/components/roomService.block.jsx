@@ -1,4 +1,4 @@
-import { Box, Button, Flex, FormControl, FormLabel, Input, Select, Tag, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, Select, Tag, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { axiosJWT } from '../services/axiosInterceptor.services'
 
@@ -24,7 +24,8 @@ export const RoomService = () => {
 
     useEffect(() => {
         getRoomService()
-    }, [])
+        onSearch()
+    }, [roomNumber])
 
     const onSearch = async () => {
         if (!roomNumber) {
@@ -67,8 +68,8 @@ export const RoomService = () => {
             setSelectedGuest('');
             setSelectedBookingId('');
             setServiceTypeId('');
-            setAmount('12');
-            setRoomNumber('12');
+            setAmount('');
+            setRoomNumber('');
         } catch (error) {
             console.log(error)
         }
@@ -82,22 +83,23 @@ export const RoomService = () => {
                 <Box>
                     <FormControl>
                         <FormLabel>Room Number</FormLabel>
-                        <Flex justifyContent={'space-around'} gep={'5'} mb={1}>
-                            <Input type='number' placeholder='Room Number' onChange={(e) => setRoomNumber(e.target.value)} />
-                            <Button variant={'outline'} colorScheme='teal' ml={3} onClick={() => onSearch()}>Search</Button>
-                        </Flex>
-                        <Box p={2}>
-                            {SelectedGuest ? (
-                                <Tag size={'lg'}>Guest : {SelectedGuest.firstName} {SelectedGuest.lastName}</Tag>
-                            ) : (
-                                <>
-                                </>
-                            )}
+                        <Flex justifyContent={'space-between'} gep={'5'} mb={5} alignItems={'center'}>
+                            <Input w={300} type='number' placeholder='Room Number' value={roomNumber} onChange={(e) => setRoomNumber(e.target.value)} />
 
-                        </Box>
+                            <Box p={1}>
+                                {SelectedGuest ? (
+                                    <Tag size={'lg'}>Guest : {SelectedGuest.firstName} {SelectedGuest.lastName}</Tag>
+                                ) : (
+                                    <>
+                                    </>
+                                )}
+
+                            </Box>
+                        </Flex>
+
                         <Box mb={5}>
-                            <FormLabel>Room Service</FormLabel>
-                            <Select placeholder='Select room service' onChange={(e) => setServiceTypeId(e.target.value)}>
+                            <FormLabel >Room Service</FormLabel>
+                            <Select placeholder='Select room service' value={serviceTypeId} onChange={(e) => setServiceTypeId(e.target.value)}>
                                 {roomServices.map(roomService => (
                                     <option key={roomService._id} value={roomService._id}>{roomService.name}</option>
                                 ))}
@@ -106,7 +108,7 @@ export const RoomService = () => {
                         </Box>
                         <Box mb={5}>
                             <FormLabel>Amount</FormLabel>
-                            <Input type='number' placeholder='Amount' onChange={(e) => setAmount(e.target.value)} />
+                            <Input type='number' placeholder='Amount' value={amount} onChange={(e) => setAmount(e.target.value)} />
                         </Box>
                         <Box mt={5}>
                             <Button variant={'solid'} colorScheme='teal' onClick={() => onRequestRoomService()}>Request</Button>

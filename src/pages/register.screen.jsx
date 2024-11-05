@@ -11,7 +11,7 @@ import {
 import axios from 'axios';
 import AppLogo from '../components/appLogo.block';
 
-const Login = () => {
+const Register = () => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
@@ -70,4 +70,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Register

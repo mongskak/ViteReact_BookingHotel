@@ -5,6 +5,7 @@ import Pagination from '../components/pagination.block'
 import { axiosJWT } from '../services/axiosInterceptor.services'
 import { format } from 'date-fns';
 import { Link, useNavigate } from 'react-router-dom'
+import { BsFile, BsFileEarmark, BsPlus, BsSearch } from 'react-icons/bs'
 
 export const Booking = () => {
     const navigate = useNavigate();
@@ -54,7 +55,7 @@ export const Booking = () => {
                 action={
                     <>
                         <Button variant={'solid'} colorScheme='teal' onClick={() => navigate('/BookingDetail')}>
-                            Add Booking
+                            <BsPlus size={30} /><Text ml={1}>Add Booking</Text>
                         </Button>
                     </>
                 }
@@ -86,7 +87,7 @@ export const Booking = () => {
                                 </Select>
                             </Box>
                             <Box w={'sm'} ml={5}>
-                                <Button variant={'solid'} colorScheme='teal' onClick={onSearch}>Search</Button>
+                                <Button variant={'solid'} colorScheme='teal' onClick={onSearch}><BsSearch /><Text ml={1}>Search</Text></Button>
                                 {/* <Button variant={'outline'} colorScheme='teal' ml={5} onClick={onReset}>Reset</Button> */}
                             </Box>
                         </Box>
@@ -103,35 +104,35 @@ export const Booking = () => {
                                         </Tr>
                                     </Thead>
                                     <Tbody>
-                                        {bookings.map(bookings => (
-                                            <Tr key={bookings._id}>
+                                        {bookings.map(booking => (
+                                            <Tr key={booking._id}>
                                                 <Td>
                                                     <HStack>
                                                         <Text fontWeight={'bold'}>
-                                                            {bookings.guestFirstName}
+                                                            {booking.guestFirstName},
                                                         </Text>
-                                                        <Text>{bookings.guestLastName}</Text>
+                                                        <Text>{booking.guestLastName}</Text>
                                                     </HStack>
                                                 </Td>
-                                                <Td>{bookings.roomId.roomNumber}</Td>
-                                                <Td>{format(bookings.checkInDate, 'dd MMM yyyy')}</Td>
-                                                <Td>{format(bookings.checkOutDate, 'dd MMM yyyy')}</Td>
+                                                <Td>{booking.roomId ? booking.roomId.roomNumber : 'No Room Assigned'}</Td>
+                                                <Td>{format(booking.checkInDate, 'dd MMM yyyy')}</Td>
+                                                <Td>{format(booking.checkOutDate, 'dd MMM yyyy')}</Td>
                                                 <Td>
                                                     <Tag
                                                         variant={'solid'}
                                                         size={'lg'}
                                                         colorScheme={
-                                                            bookings.status == 'Booked' ? 'blue' :
-                                                                bookings.status == 'CheckedIn' ? 'green' :
-                                                                    bookings.status == 'Canceled' ? 'red' :
-                                                                        bookings.status == 'CheckedOut' ? 'yellow' : 'gray'
+                                                            booking.status == 'Booked' ? 'blue' :
+                                                                booking.status == 'CheckedIn' ? 'green' :
+                                                                    booking.status == 'Canceled' ? 'red' :
+                                                                        booking.status == 'CheckedOut' ? 'yellow' : 'gray'
                                                         }
-                                                    >{bookings.status}</Tag></Td>
+                                                    >{booking.status}</Tag></Td>
                                                 <Td width={'100px'}>
                                                     <Button variant={'outline'} colorScheme='teal'
-                                                        onClick={() => navigate(`/BookingDetail/${bookings._id}`)}
+                                                        onClick={() => navigate(`/BookingDetail/${booking._id}`)}
                                                     >
-                                                        View
+                                                        <BsFileEarmark /> <Text ml={1}>View</Text>
                                                     </Button>
                                                 </Td>
 

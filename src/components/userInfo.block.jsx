@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { axiosJWT } from '../services/axiosInterceptor.services'
 import { useNavigate } from 'react-router-dom'
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
+import { BsBoxArrowRight } from 'react-icons/bs'
 
 
 const UserInfo = () => {
@@ -38,14 +39,15 @@ const UserInfo = () => {
 
     return (
         <HStack>
-            <Text>
-                {userLogged.name}
-            </Text>
+            <Box display={'flex'} flexDirection={'column'} alignItems={'flex-end'}>
+                <Text>{userLogged.name}</Text>
+                <Text fontSize={15} color={'grey'}>{userLogged.email}</Text>
+            </Box>
             <Wrap>
-                <WrapItem><Avatar name={userLogged.name} size={'sm'} /></WrapItem>
+                <WrapItem><Avatar name={userLogged.name} size={'md'} /></WrapItem>
             </Wrap>
-            <Box borderRadius='md' p={1} borderWidth={1} cursor={'pointer'} onClick={doLogout}>
-                <ArrowForwardIcon />
+            <Box borderRadius='md' p={1} cursor={'pointer'} onClick={doLogout}>
+                <BsBoxArrowRight />
             </Box>
         </HStack>
     )

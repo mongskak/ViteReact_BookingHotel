@@ -104,49 +104,68 @@ export const BookingDetail = () => {
                 }
                 mainContent={
                     <>
-                        <Box p={6} maxW='lg' borderWidth='1px' borderRadius='lg'>
+                        <Box p={6} borderWidth='1px' borderRadius='lg'>
                             <FormControl>
-                                <Box mb='3'>
-                                    <FormLabel>Guest Last Name</FormLabel>
-                                    <Input type='text'
-                                        disabled={bookingId ? true : false}
-                                        value={booking.guestLastName} onChange={(e) => assignBooking('guestLastName', e.target.value)} />
+                                <Box display={'flex'} flexDirection={'row'} gap={5}>
+                                    <Box mb='3' width={'100%'}>
+                                        <FormLabel>Guest Last Name</FormLabel>
+                                        <Input type='text'
+                                            variant={bookingId ? 'filled' : 'outline'} disabled={bookingId ? true : false}
+                                            value={booking.guestLastName} onChange={(e) => assignBooking('guestLastName', e.target.value)} />
+                                    </Box>
+                                    <Box mb='3' width={'100%'}>
+                                        <FormLabel>Guest First Name</FormLabel>
+                                        <Input type='text'
+                                            variant={bookingId ? 'filled' : 'outline'} disabled={bookingId ? true : false}
+                                            value={booking.guestFirstName} onChange={(e) => assignBooking('guestFirstName', e.target.value)} />
+                                    </Box>
                                 </Box>
-                                <Box mb='3'>
-                                    <FormLabel>Guest First Name</FormLabel>
-                                    <Input type='text'
-                                        disabled={bookingId ? true : false}
-                                        value={booking.guestFirstName} onChange={(e) => assignBooking('guestFirstName', e.target.value)} />
+                                <Box display={'flex'} flexDirection={'row'} gap={5}>
+                                    <Box mb='3' w={'100%'}>
+                                        <FormLabel>Number Of Adult</FormLabel>
+                                        <Input type='number'
+                                            variant={bookingId ? 'filled' : 'outline'} disabled={bookingId ? true : false}
+                                            value={booking.numberOfAdults} onChange={(e) => assignBooking('numberOfAdults', e.target.value)} />
+                                    </Box>
+                                    <Box mb='3' w={'100%'}>
+                                        <FormLabel>Number Of Children</FormLabel>
+                                        <Input type='number'
+                                            variant={bookingId ? 'filled' : 'outline'} disabled={bookingId ? true : false}
+                                            value={booking.numberOfChildren} onChange={(e) => assignBooking('numberOfChildren', e.target.value)} />
+                                    </Box>
                                 </Box>
-                                <Box mb='3'>
-                                    <FormLabel>Number Of Adult</FormLabel>
+                                <Box display={'flex'} flexDirection={'row'} gap={5}>
+                                    <Box mb='3' w={'100%'}>
+                                        <FormLabel>Check In Date</FormLabel>
+                                        <Input type='date'
+                                            variant={bookingId ? 'filled' : 'outline'} disabled={bookingId ? true : false}
+                                            value={formattedDate(booking.checkInDate)} onChange={(e) => assignBooking('checkInDate', e.target.value)} />
+                                    </Box>
+                                    <Box mb='3' w={'100%'}>
+                                        <FormLabel>Check Out Date</FormLabel>
+                                        <Input type='date'
+                                            variant={bookingId ? 'filled' : 'outline'} disabled={bookingId ? true : false}
+                                            value={formattedDate(booking.checkOutDate)} onChange={(e) => assignBooking('checkOutDate', e.target.value)} />
+                                    </Box>
+
+                                </Box>
+                                <FormLabel>Room Number</FormLabel>
+                                <Box display={'flex'} flexDirection={'row'} gap={5} alignItems={'center'}>
+
                                     <Input type='number'
-                                        disabled={bookingId ? true : false}
-                                        value={booking.numberOfAdults} onChange={(e) => assignBooking('numberOfAdults', e.target.value)} />
-                                </Box>
-                                <Box mb='3'>
-                                    <FormLabel>Number Of Children</FormLabel>
-                                    <Input type='number'
-                                        disabled={bookingId ? true : false}
-                                        value={booking.numberOfChildren} onChange={(e) => assignBooking('numberOfChildren', e.target.value)} />
-                                </Box>
-                                <Box mb='3'>
-                                    <FormLabel>Check In Date</FormLabel>
-                                    <Input type='date'
-                                        disabled={bookingId ? true : false}
-                                        value={formattedDate(booking.checkInDate)} onChange={(e) => assignBooking('checkInDate', e.target.value)} />
-                                </Box>
-                                <Box mb='3'>
-                                    <FormLabel>Check Out Date</FormLabel>
-                                    <Input type='date'
-                                        disabled={bookingId ? true : false}
-                                        value={formattedDate(booking.checkOutDate)} onChange={(e) => assignBooking('checkOutDate', e.target.value)} />
-                                </Box>
-                                <Box mb='3'>
-                                    <FormLabel>Room Number</FormLabel>
-                                    <Input type='number'
-                                        disabled={bookingId ? true : false}
+                                        variant={bookingId ? 'filled' : 'outline'} disabled={bookingId ? true : false}
                                         value={booking.roomNumber} onChange={(e) => assignBooking('roomNumber', e.target.value)} />
+                                    {!bookingId ? (
+                                        <>
+                                            <Button colorScheme='teal' variant='outline' onClick={() => getRoomAvailable()}>
+                                                Get Available Room
+                                            </Button>
+
+                                        </>
+                                    ) : (
+                                        <>
+                                        </>
+                                    )}
                                 </Box>
 
                             </FormControl>
@@ -156,32 +175,31 @@ export const BookingDetail = () => {
                                 </Button>
                                 {!bookingId ? (
                                     <>
-                                        <Button colorScheme='teal' variant='outline' ml={'5'} onClick={() => getRoomAvailable()}>
-                                            Get Available Room
-                                        </Button>
                                         <Button colorScheme='teal' variant='solid' ml={'5'} onClick={() => createBooking()}>
                                             Booked
                                         </Button>
                                     </>
-                                ) : booking.status == 'Booked' ? (
-                                    <>
-                                        <Button colorScheme='teal' variant='outline' ml={'5'} onClick={() => updateStatusBooking('CheckedIn')}>
-                                            Check In
-                                        </Button>
-                                        <Button colorScheme='red' variant='outline' ml={'5'} onClick={() => updateStatusBooking('Canceled')}>
-                                            Cancel
-                                        </Button>
-                                    </>
-                                ) : booking.status == 'CheckedIn' ? (
-                                    <>
-                                        <Button colorScheme='teal' variant='outline' ml={'5'} onClick={() => updateStatusBooking('CheckedOut')}>
-                                            Check Out
-                                        </Button>
-                                    </>
-                                ) : (
-                                    <>
-                                    </>
-                                )}
+                                ) :
+                                    booking.status == 'Booked' ? (
+                                        <>
+                                            <Button colorScheme='teal' variant='outline' ml={'5'} onClick={() => updateStatusBooking('CheckedIn')}>
+                                                Check In
+                                            </Button>
+                                            <Button colorScheme='red' variant='outline' ml={'5'} onClick={() => updateStatusBooking('Canceled')}>
+                                                Cancel
+                                            </Button>
+                                        </>
+                                    ) : booking.status == 'CheckedIn' ? (
+                                        <>
+                                            <Button colorScheme='teal' variant='outline' ml={'5'} onClick={() => updateStatusBooking('CheckedOut')}>
+                                                Check Out
+                                            </Button>
+                                        </>
+                                    ) : (
+                                        <>
+                                        </>
+                                    )}
+
                             </Box>
 
 

@@ -22,6 +22,8 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
 } from '@chakra-ui/react'
+import Swal from 'sweetalert2'
+import { BsPencil, BsPlus, BsTrash } from "react-icons/bs";
 
 const Room = () => {
   const [rooms, setRooms] = useState([]);
@@ -46,14 +48,40 @@ const Room = () => {
 
   const deleteRoomById = async (id) => {
     try {
-      await axiosJWT.delete(`/rooms/${id}`);
-      console.log('Room deleted successfully');
-      // Ambil data baru setelah room dihapus
-      fetchRooms();
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      });
+
+      if (result.isConfirmed) {
+        // Menunggu response dari axios untuk memastikan API call berhasil
+        await axiosJWT.delete(`/rooms/${id}`);
+        console.log('Room deleted successfully');
+
+        // Ambil data baru setelah room dihapus
+        fetchRooms();
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
     } catch (error) {
-      console.error('Failed to delete room', error.message);
+      Swal.fire({
+        title: "Failed Delete",
+        text: error.response ? error.response.data.msg : error.message,
+        icon: "error"
+      });
     }
   };
+
+
 
   const handlePageChange = (page) => {
     setCurrentPage(page); // Mengubah halaman yang sedang ditampilkan
@@ -78,7 +106,7 @@ const Room = () => {
       } action={
         <>
           <Button variant={'solid'} colorScheme='teal' onClick={() => navigate('/addRoomDetail')}>
-            Add Room
+            <BsPlus size={30} /> Add Room
           </Button>
         </>
       } mainContent={
@@ -102,8 +130,8 @@ const Room = () => {
                     <Td isNumeric>${FormatDecimal(room.price)}</Td>
                     <Td w={'100px'}>
                       {/* Tombol edit dan delete */}
-                      <Button colorScheme='teal' variant={'outline'} onClick={() => navigate(`/RoomDetail/${room._id}`)}>Edit</Button>
-                      <Button colorScheme='red' variant={'solid'} onClick={() => deleteRoomById(room._id)} ml={'5'}>Delete</Button>
+                      <Button colorScheme='teal' variant={'outline'} onClick={() => navigate(`/RoomDetail/${room._id}`)}> <BsPencil />{' '}Edit</Button>
+                      <Button colorScheme='red' variant={'solid'} onClick={() => deleteRoomById(room._id)} ml={'5'}><BsTrash />{' '}Delete</Button>
                     </Td>
                   </Tr>
                 ))}

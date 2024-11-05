@@ -23,7 +23,7 @@ const Home = () => {
     }
 
     const AfterOnCheckout = () => {
-        setIsRefresh(true)
+        setIsRefresh(!isRefresh)
         onClose()
 
     }
@@ -37,6 +37,7 @@ const Home = () => {
                     </>
                 } />
             <Box mb={50}>
+
                 <Image
                     w={'100%'}
                     src='https://blogger.googleusercontent.com/img/a/AVvXsEiYnLU7MeYY1ECUAFYNgqnPPQM-IzRVyuxlavX5w3eWkLuMXC2NTalg0T9fKSx0PeRSFHh54jk2speTAdcwBqJFSfFj6KszbMDxC_aWPATp24Y0Jj6VZ5Q0RHWsawxcbMZ22smwSX5Ll5Om0njgfuHYGUdqIZS1s_tLov5cE7zatuKSTPtqIxy8JZjPGR-r'

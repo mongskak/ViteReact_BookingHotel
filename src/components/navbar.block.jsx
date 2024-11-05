@@ -10,7 +10,7 @@ const Navbar = () => {
 
     <Flex
       mb={"30px"}
-      p={5}
+      p={3}
       alignItems={"center"}
       justifyContent={"space-between"}
 

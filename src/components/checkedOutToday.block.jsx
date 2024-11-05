@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { axiosJWT } from '../services/axiosInterceptor.services'
 import { format } from 'date-fns'
 import Pagination from './pagination.block'
+import { EmptyState } from './emptyState.block'
 
 export const CheckedOutToday = ({ onCheckout, AfterOnCheckout }) => {
     const [bookingCheckedOuts, setBookingCheckedOuts] = useState([])
@@ -54,7 +55,7 @@ export const CheckedOutToday = ({ onCheckout, AfterOnCheckout }) => {
                             </Box>
                         </ListItem>
                     ))}
-
+                    {bookingCheckedOuts.length == 0 ? <EmptyState /> : <></>}
                 </List>
                 <Pagination
                     startIndex={currentPage}

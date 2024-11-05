@@ -12,6 +12,7 @@ import {
 import MainContent from '../components/mainContent.block'
 import { useNavigate, useParams } from 'react-router-dom'
 import { axiosJWT } from '../services/axiosInterceptor.services'
+import Swal from 'sweetalert2'
 
 export const AddRoomDetail = () => {
     const navigate = useNavigate();
@@ -35,7 +36,11 @@ export const AddRoomDetail = () => {
                 price: price,
             });
             if (response.statusText) {
-                console.log('Room details saved successfully', response.data);
+                Swal.fire({
+                    title: "Add Room",
+                    text: "Create Room Successfully",
+                    icon: "success"
+                });
                 navigate('/room'); // Navigate back to the previous page
             }
         } catch (error) {

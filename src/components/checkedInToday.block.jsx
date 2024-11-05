@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { axiosJWT } from '../services/axiosInterceptor.services'
 import { format } from 'date-fns'
 import Pagination from './pagination.block'
+import Swal from 'sweetalert2'
+import { BsFolder2Open } from 'react-icons/bs'
+import { EmptyState } from './emptyState.block'
 
 export const CheckedInToday = () => {
     const [bookingCheckIns, setBookingCheckedIns] = useState([])
@@ -29,10 +32,16 @@ export const CheckedInToday = () => {
 
     const onUpdate = async (bookingId) => {
         try {
+
             const response = await axiosJWT.put(`/bookings/${bookingId}`, {
                 status: 'CheckedIn'
             });
             getBookingStatus()
+            Swal.fire({
+                title: "CheckedIn",
+                text: "CheckedIn Successfully",
+                icon: "success"
+            });
         } catch (error) {
             console.log(error);
         }
@@ -66,6 +75,7 @@ export const CheckedInToday = () => {
                             </Box>
                         </ListItem>
                     ))}
+                    {bookingCheckIns.length == 0 ? <EmptyState /> : <></>}
 
                 </List>
                 <Pagination

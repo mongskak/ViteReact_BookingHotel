@@ -14,6 +14,7 @@ import MainContent from '../components/mainContent.block'
 import { useNavigate, useParams } from 'react-router-dom'
 import { axiosJWT } from '../services/axiosInterceptor.services'
 import { RoomAmenity } from '../components/roomAmenity.block'
+import Swal from 'sweetalert2'
 
 export const RoomDetail = () => {
     const { roomId } = useParams()
@@ -65,7 +66,11 @@ export const RoomDetail = () => {
                 price: room.price,
             });
             if (response.statusText) {
-                console.log('Room details saved successfully', response.data);
+                Swal.fire({
+                    title: "Update Room",
+                    text: "Update Room Successfully",
+                    icon: "success"
+                });
                 navigate('/room'); // Navigate back to the previous page
             }
         } catch (error) {
