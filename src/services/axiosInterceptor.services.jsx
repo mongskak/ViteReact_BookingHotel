@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { useEffect } from "react";
 
 const axiosJWT = axios.create({
-  baseURL: "https://express-js-booking-hotel.vercel.app",
+  baseURL: "https://express-js-booking-hotel.vercel.app/api/v1",
   withCredentials: true,
 });
 
@@ -12,7 +12,7 @@ const axiosJWT = axios.create({
 axiosJWT.interceptors.request.use(
   async (config) => {
     try {
-      const response = await axios.get("https://express-js-booking-hotel.vercel.app/auth/token");
+      const response = await axios.get("https://express-js-booking-hotel.vercel.app/api/v1/auth/token");
       const token = response.data.accessToken;
       config.headers["Authorization"] = `Bearer ${token}`;
 
