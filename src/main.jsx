@@ -6,6 +6,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter } from 'react-router-dom'
 axios.defaults.withCredentials = true;
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
